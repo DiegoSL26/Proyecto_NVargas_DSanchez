@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DefaultValueAccessor } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dulce } from 'src/app/models/candy.model';
+import { elemento } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/servicios/clientes.service';
 import { InventarioService } from 'src/app/servicios/inventario.service';
 import Swal from 'sweetalert2';
@@ -13,8 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class CarritoComponent implements OnInit {
 
-  public carrito:Dulce[];
-  public dulce:Dulce = new Dulce;
+  public carrito:elemento[];
+  public dulce:elemento = new elemento();
   public total:number;
 
   constructor(public _clienteService: ClienteService, public route: Router, public _inventService:InventarioService) { 
@@ -25,7 +26,7 @@ export class CarritoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  eliminar(dulce:Dulce){
+  eliminar(dulce:elemento){
     Swal.fire({
       title: 'Esta seguro que deseas borrar este dulce de tu carrito?',
       text: 'Piensatelo 2 veces ;)',
@@ -35,8 +36,8 @@ export class CarritoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this._clienteService.actual.elimiar(dulce);
-        this.carrito
+        this._clienteService.actual.elimiar(dulce.id);
+        this.total=this.calcularTotal();
         Swal.fire(
           'Borrado!',
           'Se ha elimiado correctamente el dulce de tu carrito.',
@@ -69,7 +70,7 @@ export class CarritoComponent implements OnInit {
   moverInvent(){
     for(let dulce of this._clienteService.actual.carrito){
       for(let dulceI of this._inventService.Disponible){
-        if(dulce.nombre==dulceI.nombre){
+        if(dulce.cosa.nombre==dulceI.nombre){
           dulceI.cantidad--;
           dulceI.vendido++;
         }
@@ -80,7 +81,7 @@ export class CarritoComponent implements OnInit {
   calcularTotal(): number {
     var cont = 0;
     for(let dulce of this._clienteService.actual.carrito){
-      cont=cont+dulce.costo;
+      cont=cont+dulce.cosa.costo;
     }
     return cont;
   }

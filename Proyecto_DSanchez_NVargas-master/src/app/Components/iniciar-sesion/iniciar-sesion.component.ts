@@ -83,7 +83,6 @@ export class IniciarSesionComponent implements OnInit {
 
   registrar(Cliente: cliente) {
     var yaExiste: boolean = false;
-    debugger;
     if (Cliente.nombre == null || Cliente.nombre == "") {
       Swal.fire({
         icon: 'error',

@@ -36,7 +36,7 @@ export class DetalleDulceComponent implements OnInit {
   agregarCarrito() {
     var nomUsuario = localStorage.getItem('user');
     if (nomUsuario != null) {
-      this._clienteService.actual.carrito.push(this._inventService.buscar);     
+      this._clienteService.actual.agregar(this._inventService.buscar);     
       this._clienteService.actual.agregarFactura(this._inventService.buscar);
       
       Swal.fire('Agregado!','Se ha agregado a tu carrito.','success')

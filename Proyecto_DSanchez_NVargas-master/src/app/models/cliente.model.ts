@@ -2,23 +2,43 @@ import { DefaultValueAccessor } from "@angular/forms";
 import { Dulce } from "./candy.model";
 import { Facturas } from "./facturas.module";
 
+export class elemento {
+  id:number;
+  cosa:Dulce;
+
+  constructor (id?:number,thing?:Dulce){
+    if(id){
+      this.id=id;
+    }
+    if(thing){
+      this.cosa=thing;
+    }
+  
+    
+  }
+}
+
 export class cliente {
+
 
   nombre:string;
   contra:string;
   email:string;
   numFact: number = 0;
-  carrito: Dulce[] = [];
+  numElemt: number = 0;
+  carrito: elemento[] = [];
   Facturas: Facturas[] =[];
   factura:Facturas;
+  mono:elemento;
 
   constructor (){
     this.generarFactura();
   }
 
   public agregar(articulo : Dulce){
-    this.carrito.push(articulo)
-    alert("Se ha registrado correctamente");
+    this.numElemt++;
+    this.mono = new elemento(this.numElemt,articulo);
+    this.carrito.push(this.mono)
   }
 
   public obtener(){
@@ -31,12 +51,16 @@ export class cliente {
   }
 
   public agregarFactura(dulce:Dulce){
-    this.factura.agregar(dulce);
+    var cosa:elemento=new elemento(this.numElemt,dulce);
+    this.factura.agregar(cosa);
   }
 
-  public elimiar(dulceE:Dulce){
-    this.carrito.forEach((dulce,index)=>{
-      if(dulce.nombre==dulceE.nombre) this.carrito.splice(index,1);
+  public elimiar(id:number){
+    this.carrito.forEach((elemt,index)=>{
+      if(elemt.id==id) this.carrito.splice(index,1);
+    });
+    this.factura.pedido.forEach((elemt,index)=>{
+      if(elemt.id==id) this.factura.pedido.splice(index,1);
     });
   }
 

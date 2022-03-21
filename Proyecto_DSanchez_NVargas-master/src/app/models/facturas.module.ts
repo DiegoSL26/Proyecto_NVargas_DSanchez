@@ -1,10 +1,11 @@
 import { Dulce } from "./candy.model";
+import { elemento } from "./cliente.model";
 
 export class Facturas {
 
     id:number;
     persona: String;
-    pedido:Dulce[]=[];
+    pedido:elemento[]=[];
     total:number;
 
 
@@ -13,7 +14,7 @@ export class Facturas {
         this.id= num;
     }
 
-    agregar(dulce:Dulce){
+    agregar(dulce:elemento){
         this.pedido.push(dulce);
     }
 

@@ -10,9 +10,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let dulce of factura.pedido" >
-                    <td> {{dulce.nombre}}</td>
-                    <td> {{dulce.tipo}}</td>
-                    <td> {{dulce.costo}}</td>
+                    <td> {{dulce.cosa.nombre}}</td>
+                    <td> {{dulce.cosa.tipo}}</td>
+                    <td> {{dulce.cosa.costo}}</td>
                 </tr>
             </tbody>
         </div>
