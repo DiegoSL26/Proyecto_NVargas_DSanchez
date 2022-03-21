@@ -32,6 +32,9 @@ export class EditarDulceComponent implements OnInit {
     if(this.dulce.vendido==null){
       this.dulce.vendido=this._inventService.buscar.vendido;
     }
+    if(this.dulce.imagen==null){
+      this.dulce.imagen=this._inventService.buscar.imagen;
+    }
     this._inventService.editar(this.dulce);
     this._inventService.buscar=this.dulce;
     this.router.navigateByUrl('./inventario')
@@ -39,7 +42,5 @@ export class EditarDulceComponent implements OnInit {
 
   cancelar(){
     this.router.navigateByUrl('./inventario');
-    
   }
-
 }

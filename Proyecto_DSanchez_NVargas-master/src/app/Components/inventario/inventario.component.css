@@ -9,7 +9,7 @@
   padding: 2%;
   margin: auto;
   margin-top: 2%;
-  border-radius: 10px;
+  margin-bottom: 2%;
   font: normal 22px Mouser;
 }
 
@@ -34,7 +34,7 @@
   background: rgb(255, 97, 97);
   border-radius: 10px;
   padding: 1%;
-  margin-top: 25%;
+  margin-top: 10%;
 }
 
 .row {

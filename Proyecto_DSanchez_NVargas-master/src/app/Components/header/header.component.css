@@ -23,11 +23,12 @@
 }
 
 .navPrincipal {
-    width: 100%;
-    padding-left: 0%;
+    padding-right: 1%;
+    max-width: 100%;
     margin-top: 0px;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 90px;
     margin-bottom: 0%;
 }
@@ -37,8 +38,8 @@
     float: left;
     display: flex;
     align-items: center;
-    padding-right: 10%;
-    padding-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #logout {

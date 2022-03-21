@@ -26,7 +26,6 @@ export class IniciarSesionComponent implements OnInit {
   }
 
   buscar(nombre: string, contra: string) {
-
     if (nombre == "" || nombre == null) {
       Swal.fire({
         icon: 'error',

@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl("./perfil")
   }
 
+
   revizar(): boolean {
     var nomUsuario = localStorage.getItem('user');
     if (nomUsuario != null) {

@@ -11,10 +11,9 @@ import { ClienteService } from 'src/app/servicios/clientes.service';
 export class PerfilComponent implements OnInit {
 
   public usu:cliente;
-  public numImg:number=3;
-  public imgs:string[]=["../../../assets/images/userIcons/1.png","../../../assets/images/userIcons/2.png","../../../assets/images/userIcons/3.png"];
 
   constructor(public router:Router,public _clienteService: ClienteService) { 
+    debugger;
     this.usu = _clienteService.actual;
   }
 
@@ -23,12 +22,6 @@ export class PerfilComponent implements OnInit {
 
   verFacturas(){
     this.router.navigateByUrl("./verFacts")
-  }
-
-  tomarImg():string{
-    var num : number = Math.floor(Math.random() * this.numImg);
-    var Simg:string = this.imgs[num];
-    return Simg;
   }
   
 }
