@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Costo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dulce of factura.pedido" >
+                    <td> {{dulce.nombre}}</td>
+                    <td> {{dulce.tipo}}</td>
+                    <td> {{dulce.costo}}</td>
+                </tr>
+            </tbody>
+        </div>
+    </div>
+    <button class="buttonC" type="button" value="Detalles" (click)="volver()">Volver</button>
+</div>
+
