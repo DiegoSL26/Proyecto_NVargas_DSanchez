@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouteConfigLoadEnd, Router } from '@angular/router';
 import { Administrador } from 'src/app/models/admin.module';
@@ -13,21 +14,20 @@ import { InventarioService } from 'src/app/servicios/inventario.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
+  public clientes: any = [];
   public inventario: Dulce[] = [];
   public cliente:cliente;
   public admin:Administrador;
   public encontrado: boolean;
 
 
-  constructor(public _InveService: InventarioService,_clienteService: ClienteService,_adminService: AdminsService,public route :Router) {
-    this.inventario=_InveService.Disponible;
+  constructor(public _InveService: InventarioService,_clienteService: ClienteService,_adminService: AdminsService, public route :Router, private http: HttpClient) {
     
-
     var nomUsuario = localStorage.getItem('user');
-    for(let cli of _clienteService.vertedero){
-      if(cli.nombre==nomUsuario){
+    for(let cli of this.clientes){
+      if(cli.nombre==nomUsuario && cli.admin == false){
         this.cliente = new cliente();
         this.cliente=cli;
         this.encontrado=true;
@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit {
     }
 
     if(!this.encontrado){
-      for(let adm of _adminService.administradores){
-        if(adm.nombre==nomUsuario){
+      for(let adm of this.clientes){
+        if(adm.nombre==nomUsuario && adm.admin == true){
           this.admin = new Administrador();
           this.admin=adm;
           this.encontrado=true;
@@ -56,7 +56,9 @@ export class HomeComponent implements OnInit {
     return productos
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.http.get("http://localhost:8080/Dulce").subscribe((resp: any) => {this.inventario = resp})
+    this.http.get('http://localhost:8080/Cliente').subscribe(resp => {this.clientes = resp;})
   }
 
   agregar(compra:Dulce){

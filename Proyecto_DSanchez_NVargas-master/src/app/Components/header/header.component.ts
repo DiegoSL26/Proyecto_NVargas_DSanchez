@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminsService } from 'src/app/servicios/admins.service';
 import { ClienteService } from 'src/app/servicios/clientes.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,12 @@ import { ClienteService } from 'src/app/servicios/clientes.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public router: Router, public _adminService: AdminsService, public _clienteService:ClienteService) { }
+  public clientes: any = [];
 
-  ngOnInit(): void {
+  constructor(public router: Router, public _adminService: AdminsService, public _clienteService:ClienteService, private http: HttpClient) { }
+
+  ngOnInit() {
+    this.http.get("http://localhost:8080/Cliente").subscribe((resp: any) => {this.clientes = resp})
   }
 
   home() {
@@ -31,8 +35,8 @@ export class HeaderComponent implements OnInit {
   revizarAdmin(): boolean {
     var nomUsuario = localStorage.getItem('user');
     if (nomUsuario != null) {
-      for (let adm of this._adminService.administradores) {
-        if (adm.nombre == nomUsuario) {
+      for (let adm of this.clientes) {
+        if (adm.nombre == nomUsuario && adm.admin == true) {
           return true;
         }
       }
@@ -52,8 +56,8 @@ export class HeaderComponent implements OnInit {
   revizar(): boolean {
     var nomUsuario = localStorage.getItem('user');
     if (nomUsuario != null) {
-      for (let usu of this._clienteService.vertedero) {
-        if (usu.nombre == nomUsuario) {
+      for (let usu of this.clientes) {
+        if (usu.nombre == nomUsuario && usu.admin == false) {
           return true;
         }
       }

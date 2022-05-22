@@ -1,5 +1,6 @@
 export class Dulce {
 
+    id:number;
     nombre:String;
     tipo: String;
     cantidad:number;

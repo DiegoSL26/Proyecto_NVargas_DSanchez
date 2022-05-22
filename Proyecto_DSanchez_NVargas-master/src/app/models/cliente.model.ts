@@ -20,9 +20,9 @@ export class elemento {
 
 export class cliente {
 
-
+  id:number;
   nombre:string;
-  contra:string;
+  contrasenna:string;
   email:string;
   numFact: number = 0;
   numElemt: number = 0;
@@ -30,6 +30,7 @@ export class cliente {
   Facturas: Facturas[] =[];
   factura:Facturas;
   mono:elemento;
+  admin:boolean;
 
   constructor (){
     this.generarFactura();

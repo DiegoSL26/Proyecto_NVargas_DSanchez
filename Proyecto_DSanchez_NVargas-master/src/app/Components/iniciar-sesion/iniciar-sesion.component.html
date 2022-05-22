@@ -6,16 +6,16 @@
             <div class="login-form">
                 <div class="sign-in-htm">
                     <div class="group">
-                        <label for="user" class="label" name="nombre">Nombre de usuario</label>
-                        <input id="userI" type="text" class="input" [(ngModel)]="Cliente.nombre" name="nombre" >
+                        <label for="user" class="label" name="nombre">Correo Electronico</label>
+                        <input id="userI" type="text" class="input" [(ngModel)]="Cliente.email" name="correo" >
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Contraseña</label>
-                        <input id="passI" type="password" class="input" data-type="password" [(ngModel)]="Cliente.contra" name="contra">
+                        <input id="passI" type="password" class="input" data-type="password" [(ngModel)]="Cliente.contrasenna" name="contra">
                     </div>
                     <div class="hr"></div>
                     <div class="group">
-                        <input type="submit" class="button" value="Sign In" (click)="buscar(Cliente.nombre,Cliente.contra)">
+                        <input type="submit" class="button" value="Sign In" (click)="buscar(Cliente.email,Cliente.contrasenna)">
                     </div>             
                 </div>
     
@@ -27,7 +27,7 @@
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Contraseña</label>
-                        <input id="passU" type="password" class="input" data-type="password"  [(ngModel)]="Cliente.contra" name="contra">
+                        <input id="passU" type="password" class="input" data-type="password"  [(ngModel)]="Cliente.contrasenna" name="contra">
                     </div>
                     <div class="group">
                         <label for="mail" class="label">Correo electronico</label>

@@ -15,6 +15,7 @@ import { CarritoComponent } from './Components/carrito/carrito.component';
 import { PerfilComponent } from './Components/perfil/perfil.component';
 import { VerFacturasComponent } from './Components/ver-facturas/ver-facturas.component';
 import { LaFacturaComponent } from './Components/la-factura/la-factura.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { LaFacturaComponent } from './Components/la-factura/la-factura.component
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

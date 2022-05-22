@@ -27,6 +27,7 @@ export class DetalleDulceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   volverHome() {

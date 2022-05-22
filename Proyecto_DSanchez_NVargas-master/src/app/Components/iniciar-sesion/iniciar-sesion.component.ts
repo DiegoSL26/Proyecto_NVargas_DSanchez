@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Administrador } from 'src/app/models/admin.module';
 import { cliente } from 'src/app/models/cliente.model';
 import { AdminsService } from 'src/app/servicios/admins.service';
+import { HttpClient } from '@angular/common/http';
 import { ClienteService } from 'src/app/servicios/clientes.service';
 import Swal from 'sweetalert2';
 
@@ -17,16 +18,20 @@ import Swal from 'sweetalert2';
 export class IniciarSesionComponent implements OnInit {
 
 
+
+  public clientes: any = [];
   public Cliente: cliente = new cliente();
   public Admin: Administrador = new Administrador();
   public encontrado: boolean = false;
-  constructor(public _clienteService: ClienteService, public router: Router, public _adminsService: AdminsService) { }
 
-  ngOnInit(): void {
+  constructor(public _clienteService: ClienteService, public router: Router, public _adminsService: AdminsService, private http: HttpClient) { }
+
+  ngOnInit() {
+    this.http.get('http://localhost:8080/Cliente').subscribe(resp => {this.clientes = resp;})
   }
 
-  buscar(nombre: string, contra: string) {
-    if (nombre == "" || nombre == null) {
+  buscar(correo: string, contra: string) {
+    if (correo == "" || correo == null) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -40,8 +45,9 @@ export class IniciarSesionComponent implements OnInit {
           text: 'olvidaste llenar la contraseña',
         })
       } else {
-        for (let usu of this._clienteService.vertedero) {
-          if (usu.nombre == nombre && usu.contra == contra) {
+        for (let usu of this.clientes) {
+          if (usu.email == correo && usu.contrasenna == contra && usu.admin == false) {
+            debugger;
             Swal.fire('Bienvenido', 'Has iniciado sesión exitosamente!', 'success')
             localStorage.setItem('user', usu.nombre);
             this.Cliente = new cliente();
@@ -49,14 +55,12 @@ export class IniciarSesionComponent implements OnInit {
             this.router.navigateByUrl('./home');
             this.encontrado = true;
           }
-        }
-
-        for (let adm of this._adminsService.administradores) {
-          if (adm.nombre == nombre && adm.contra == contra) {
-            localStorage.setItem('user', adm.nombre);
-            Swal.fire('Bienvenido ' + adm.nombre, 'Ha iniciado sesión como administrador', 'success')
+          
+          if (usu.email == correo && usu.contrasenna == contra && usu.admin == true) {
+            localStorage.setItem('user', usu.nombre);
+            Swal.fire('Bienvenido ' + usu.nombre, 'Ha iniciado sesión como administrador', 'success')
+            this._adminsService.admin = usu;
             this.Admin = new Administrador();
-            this._adminsService.admin = adm;
             this.router.navigateByUrl('./home');
             this.encontrado = true;
           }
@@ -89,21 +93,21 @@ export class IniciarSesionComponent implements OnInit {
         text: 'No se ha ingresado nombre!',
       })
     } else {
-      if (Cliente.contra == null || Cliente.contra == "") {
+      if (Cliente.contrasenna == null || Cliente.contrasenna == "") {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'No se ha ingresado una contraseña valida!',
         })
       } else {
-        if (Cliente.email == null || Cliente.contra == "") {
+        if (Cliente.email == null || Cliente.contrasenna == "") {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'No se ha ingresado un email valida!',
           })
         } else {
-          for (let cli of this._clienteService.vertedero) {
+          for (let cli of this.clientes) {
             if (cli.nombre == Cliente.nombre) {
               Swal.fire({
                 icon: 'error',
@@ -114,8 +118,8 @@ export class IniciarSesionComponent implements OnInit {
 
             }
           }
-          for (let adm of this._adminsService.administradores) {
-            if (adm.nombre == Cliente.nombre && adm.contra == Cliente.contra) {
+          for (let adm of this.clientes) {
+            if (adm.nombre == Cliente.nombre && adm.contrasenna == Cliente.contrasenna) {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -124,7 +128,7 @@ export class IniciarSesionComponent implements OnInit {
               yaExiste = true;
             } else {
               for (let adm of this._adminsService.administradores) {
-                if (adm.nombre == Cliente.nombre && adm.contra == Cliente.contra) {
+                if (adm.nombre == Cliente.nombre && adm.contrasenna == Cliente.contrasenna) {
                   Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

@@ -17,6 +17,9 @@ export class EditarDulceComponent implements OnInit {
   }
 
   Editar(){
+    if(this.dulce.id == null) {
+      this.dulce.id=this._inventService.buscar.id;
+    }
     if(this.dulce.nombre==null){
       this.dulce.nombre=this._inventService.buscar.nombre;
     }
@@ -37,6 +40,7 @@ export class EditarDulceComponent implements OnInit {
     }
     this._inventService.editar(this.dulce);
     this._inventService.buscar=this.dulce;
+    this._inventService.putDulce(this.dulce);
     this.router.navigateByUrl('./inventario')
   }
 
